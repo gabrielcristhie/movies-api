@@ -3,6 +3,8 @@ package com.gabriel.movies_api.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class movie {
@@ -16,7 +18,8 @@ public class movie {
     @Column
     private String director;
     @Column
-    private String cast;
+    @OneToMany
+    private List<actors> cast;
     @Column
     private String time;
     @Column
@@ -58,11 +61,11 @@ public class movie {
         this.director = director;
     }
 
-    public String getCast() {
+    public List<actors> getCast() {
         return cast;
     }
 
-    public void setCast(String cast) {
+    public void setCast(List<actors> cast) {
         this.cast = cast;
     }
 
