@@ -29,6 +29,9 @@ public class movie {
     @Column
     private String image;
 
+    @Column
+    private Double note;
+
     public Long getId() {
         return id;
     }
@@ -100,4 +103,13 @@ public class movie {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public Double getNote() {
+        return note;
+    }
+
+    public void setNote(Double note) {
+        this.note = note;
+    }
+
 }
