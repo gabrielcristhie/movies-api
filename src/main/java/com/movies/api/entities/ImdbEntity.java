@@ -1,15 +1,17 @@
-package com.gabriel.movies_api.entities;
+package com.movies.api.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class imdb {
+@Table(name = "imdb")
+public class ImdbEntity implements Serializable {
 
-    @Column
-    @GeneratedValue
-    private Long id;
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column
     private String poster_link;
     @Column
@@ -43,11 +45,11 @@ public class imdb {
     @Column
     private String gross;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
