@@ -2,12 +2,11 @@ package com.movies.api.controller;
 
 import com.movies.api.entities.ImdbEntity;
 import com.movies.api.repository.ImdbRepository;
+import com.movies.api.responses.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,4 +33,15 @@ public class ImdbController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(value = "/imdb", method = RequestMethod.POST)
+    public ResponseEntity<Response<ImdbEntity>> Post( @RequestBody ImdbEntity movie, BindingResult result) {
+        Response<ImdbEntity> response = new Response<ImdbEntity>();
+        if (result.hasErrors()) {
+            result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(response);
+        }
+        imdbRepository.save(movie);
+        response.setData(movie);
+        return ResponseEntity.ok(response);
+    }
 }
